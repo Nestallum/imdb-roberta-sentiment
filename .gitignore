@@ -216,3 +216,28 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Project-specific 
+#   (Machine Learning)
+
+# Datasets and generated artifacts
+data/
+checkpoints/
+runs/
+outputs/
+logs/
+
+# Model weights
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Experiment tracking (in case we add W&B later)
+wandb/
+
+# Hugging Face cache (should live in ~/.cache/huggingface, but just in case)
+.cache/
+
+# Local config overrides
+configs/local/
