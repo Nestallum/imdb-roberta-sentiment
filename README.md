@@ -2,15 +2,19 @@
 
 Fine-tuning [RoBERTa-base](https://huggingface.co/roberta-base) on the IMDb movie reviews dataset for binary sentiment classification (positive / negative).
 
-## Project Status
+---
 
-🚧 Work in progress.
+## Results
 
-## Goals
+🚧 *Training in progress — results will be reported here once available.*
 
-- Achieve >94% test accuracy on IMDb (50k reviews, balanced split).
-- Apply professional ML engineering practices: reproducibility, configuration management, clean code, comprehensive logging.
-- Document the full training pipeline and results.
+---
+
+## Project Structure
+
+🚧 *To be documented as the codebase grows.*
+
+---
 
 ## Stack
 
@@ -19,9 +23,13 @@ Fine-tuning [RoBERTa-base](https://huggingface.co/roberta-base) on the IMDb movi
 - Hugging Face Transformers & Datasets
 - TensorBoard for experiment tracking
 
+---
+
 ## Dataset
 
-IMDb (Maas et al., 2011): 50,000 movie reviews split evenly into 25k train / 25k test, balanced across positive and negative classes. Reviews with neutral ratings (5–6 / 10) are excluded from the dataset by construction.
+[IMDb](https://ai.stanford.edu/~amaas/data/sentiment/) (Maas et al., 2011) — 50,000 movie reviews split evenly into 25k train / 25k test, balanced across positive and negative classes. Reviews with neutral ratings (5–6 / 10) are excluded from the dataset by construction.
+
+---
 
 ## License
 
