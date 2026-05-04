@@ -1,0 +1,27 @@
+# Configuration for IMDb sentiment classification with RoBERTa
+
+data:
+  dataset_name: "imdb"           # HuggingFace Hub identifier
+  num_labels: 2                  # binary: negative (0) / positive (1)
+  max_length: 256                # token sequence length after tokenization
+  num_workers: 4                 # DataLoader subprocesses
+
+model:
+  name: "roberta-base"           # HuggingFace model identifier (~125M params)
+
+training:
+  epochs: 3                      # standard for fine-tuning Transformers
+  batch_size: 32
+  learning_rate: 2.0e-5          # standard Transformer fine-tuning LR
+  weight_decay: 0.01
+  warmup_ratio: 0.1              # 10% of total steps for linear warmup
+  max_grad_norm: 1.0             # gradient clipping threshold
+  seed: 42
+
+logging:
+  log_dir: "logs/"
+  checkpoint_dir: "checkpoints/"
+  save_best_only: true           # only keep the checkpoint with best val accuracy
+
+evaluation:
+  results_dir: "results/"
