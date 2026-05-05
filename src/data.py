@@ -4,12 +4,12 @@ from typing import Any
 
 from datasets import DatasetDict, load_dataset
 from torch.utils.data import DataLoader
-from transformers import PreTrainedTokenizerBase, RobertaTokenizerFast
+from transformers import AutoTokenizer, PreTrainedTokenizerBase
 
 
 def load_tokenizer(model_name: str) -> PreTrainedTokenizerBase:
     """Load the pre-trained tokenizer associated with the given model."""
-    return RobertaTokenizerFast.from_pretrained(model_name)
+    return AutoTokenizer.from_pretrained(model_name, use_fast=True)
 
 
 def load_imdb_splits(val_ratio: float = 0.1, seed: int = 42) -> DatasetDict:
