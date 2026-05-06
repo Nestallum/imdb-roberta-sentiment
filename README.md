@@ -151,6 +151,23 @@ A 10% validation split is carved out of the training set (stratified by label) t
 
 ---
 
+## On Calibration and Ambiguity
+
+The fine-tuned model produces overconfident predictions (~99% probability) even on genuinely ambiguous inputs. For instance, the review *"The film tries hard but never quite delivers. Some scenes are brilliant, others fall completely flat."* is classified as negative with 99.7% confidence — a level of certainty inconsistent with the input's evident ambiguity.
+
+This is not a bug but a structural limitation. Temperature scaling (Guo et al., 2017), the standard post-hoc calibration method, can flatten predicted probabilities but cannot give the model the ability to express genuine uncertainty. The deeper cause is architectural: the model was trained on strictly binary labels (0 / 1) over a dataset that excludes neutral reviews by construction. It has never been exposed to the concept of an "in-between" sentiment.
+
+Achieving truly nuanced predictions would require revisiting the training procedure:
+
+- **Label smoothing**: replacing hard 0/1 targets with 0.05/0.95, forcing the model to retain residual doubt.
+- **Mixup on embeddings**: synthesizing intermediate examples by interpolating between positive and negative reviews.
+- **Switching dataset**: training on a graded sentiment corpus such as SST-5 or Yelp 5-star, where the label space natively encodes ambiguity.
+- **Multi-task learning**: adding an explicit uncertainty regularization objective.
+
+All these approaches require retraining; no post-hoc fix can substitute for representations the model never learned.
+
+---
+
 ## Future Improvements
 
 The current model achieves 94.12% test accuracy. Pushing toward state-of-the-art (~95.5% with RoBERTa-base, ~96% with RoBERTa-large) would involve:
@@ -159,7 +176,6 @@ The current model achieves 94.12% test accuracy. Pushing toward state-of-the-art
 - **Hyperparameter tuning**: grid search over learning rate, batch size, and number of epochs.
 - **Multiple seeds + averaging**: training 3–5 models with different seeds and averaging predictions typically adds ~0.3% accuracy.
 - **Larger backbone**: switching to RoBERTa-large would add ~1–1.5% but tripling parameter count and compute.
-- **Calibration**: the fine-tuned model produces overconfident predictions (~99% probability) even on ambiguous inputs, a known issue with Transformers fine-tuned with cross-entropy on polarized datasets. Temperature scaling or label smoothing during training would mitigate this.
 
 ---
 
